@@ -35,7 +35,7 @@ public class VentaDAO extends DAO {
         ejecutarSQL(sql);
     }
 
-    public String buscarVentaPorId(int id) throws Exception {
+    public String mostrarVentaPorId(int id) throws Exception {
         String sql = "SELECT * FROM Venta WHERE id_Venta = " + id;
         ResultSet resultado = consultarBase(sql);
         if (resultado.next()) {

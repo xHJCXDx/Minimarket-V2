@@ -19,13 +19,6 @@ public class VentaModelo {
     public VentaModelo() {
     }
 
-    public VentaModelo(Date fecha, int id_cliente, int id_empleado, ArrayList<PedidoPlatoModelo> platos, ArrayList<PedidoProductoModelo> productos) {
-        this.fecha = fecha;
-        this.id_cliente = id_cliente;
-        this.id_empleado = id_empleado;
-        this.platos = platos;
-        this.productos = productos;
-    }
     public VentaModelo(Date fecha, int id_cliente, int id_empleado) {
         this.fecha = fecha;
         this.id_cliente = id_cliente;
@@ -86,6 +79,10 @@ public class VentaModelo {
     public void eliminarVenta (int id) throws Exception {
         ventadao.eliminarVenta(id);
     }
+
+    public String mostrarEncabezadoVenta(int id_venta) throws Exception {
+        return ventadao.mostrarVentaPorId(id_venta);
+    }
     public ArrayList<VentaModelo> obtenerVentasTodas() throws Exception {
         return ventadao.obtenerVentasTodas();
     }
@@ -96,32 +93,22 @@ public class VentaModelo {
         return ventadao.obtenerVentasDiarias();
     }
 
-    public double gananciasDiaria() throws Exception {
-        VentaModelo venta = new VentaModelo();
-        ArrayList<VentaModelo> ventas= venta.obtenerVentasDiarias();
-        double total = 0;
-//        for(VentaModelo i: ventas){
-//            total += i.(i.getId_venta());
-//        }
-        return total;
+    public ArrayList<Integer>IdVentasDiaria() throws Exception {
+        ArrayList<VentaModelo> ventas= obtenerVentasDiarias();
+        ArrayList<Integer> ids = new ArrayList<>();
+        for(VentaModelo i: ventas){
+            ids.add(i.getId_venta());
+        }
+        return ids;
     }
-    public double gananciasMensuales() throws Exception {
-        VentaModelo venta = new VentaModelo();
-        ArrayList<VentaModelo> ventas= venta.obtenerVentasMensuales();
-        double total = 0;
-//        for(VentaModelo i: ventas){
-//            total += i.precioVenta(i.getId_venta());
-//        }
-        return total;
-    }
-    public double ganancias() throws Exception {
-        VentaModelo venta = new VentaModelo();
-        ArrayList<VentaModelo> ventas= venta.obtenerVentasTodas();
-        double total = 0;
-//        for(VentaModelo i: ventas){
-//            total += i.precioVenta(i.getId_venta());
-//        }
-        return total;
+    public ArrayList<Integer> IdVentasMensuales() throws Exception {
+        ArrayList<VentaModelo> ventas = ventadao.obtenerVentasMensuales();
+        ArrayList<Integer> ids = new ArrayList<>();
+        for(VentaModelo i: ventas){
+            int id = i.getId_venta();
+            ids.add(id);
+        }
+        return ids;
     }
     public ArrayList<String> listarVentas() throws Exception {
         return ventadao.buscarVentas();

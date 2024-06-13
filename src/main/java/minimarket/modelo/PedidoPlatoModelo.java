@@ -11,7 +11,8 @@ public class PedidoPlatoModelo {
     private int id_Plato;
     private int id_Venta;
     private PlatoModelo platoPedido;
-    private final PedidoPlatoDAO pedidoplatodao = new PedidoPlatoDAO(this);
+    private VentaModelo venta;
+    private PedidoPlatoDAO pedidoplatodao = new PedidoPlatoDAO(this);
 
     public PedidoPlatoModelo() {
     }
@@ -54,32 +55,118 @@ public class PedidoPlatoModelo {
         this.id_Venta = id_Venta;
     }
 
+    public PlatoModelo getPlatoPedido() {
+        return platoPedido;
+    }
+
+    public void setPlatoPedido(PlatoModelo platoPedido) {
+        this.platoPedido = platoPedido;
+    }
+
+    public VentaModelo getVenta() {
+        return venta;
+    }
+
+    public void setVenta(VentaModelo venta) {
+        this.venta = venta;
+    }
+
     public void ingresarPedidoPlato(int idventa, int idPlato, int cantidad) throws Exception {
         pedidoplatodao.ingresarPedidoPlato(idventa, idPlato, cantidad);
     }
-
-    public PedidoPlatoModelo buscarPedidoPlatoPorVenta(int id_Venta) throws Exception {
-        return pedidoplatodao.buscarPedidoPlatoPorId(id_Venta);
+    public void modificarPedidoPlato(int id, int cantidad, int idPlato) throws Exception {
+        pedidoplatodao.modificarPedidoPlato(id, cantidad, idPlato);
+    }
+    public void eliminarPedidoPlato(int idventa) throws Exception {
+        pedidoplatodao.eliminarPedidoPlatoPorVenta(idventa);
     }
 
-    public double precioPedidoPlato(int id_Venta) throws Exception {
-        PedidoPlatoModelo modelo = new PedidoPlatoModelo();
-        modelo = buscarPedidoPlatoPorVenta(id_Venta);
-        PlatoModelo plato = new PlatoModelo();
-        plato.buscarPlatoPorId(modelo.id_Plato);
-        return plato.getPrecio() * modelo.cantidad;
+    public ArrayList<PedidoPlatoModelo> ObtenerPedidoPlatoPorVenta(int id_Venta) throws Exception {
+        return pedidoplatodao.ObtenerPedidosPorVenta(id_Venta);
     }
-
     public ArrayList<PedidoPlatoModelo> ObtenerPedidosPlatosTodos() throws Exception {
         return pedidoplatodao.ObtenerPedidosPlatosTodos();
     }
+    public String mostrarPedidoPlato(int id_Venta) throws Exception {
+        ArrayList<PedidoPlatoModelo> modelo = new ArrayList<>();
+        modelo = ObtenerPedidoPlatoPorVenta(id_Venta);
+        String detalleVenta = "";
+        for(PedidoPlatoModelo i: modelo){
+            detalleVenta="Cantidad "+ i.cantidad;
+            PlatoModelo plato = new PlatoModelo();
+            plato.buscarPlatoPorId(i.id_Plato);
+            detalleVenta += "  Plato: "+plato.getNombre()+"  Precio: "+plato.getPrecio();
+        }
+        return detalleVenta;
+    }
+
+    public double precioPedidoPlato(int id_Venta) throws Exception {
+        ArrayList<PedidoPlatoModelo> modelo = new ArrayList<>();
+        modelo = ObtenerPedidoPlatoPorVenta(id_Venta);
+        double precioPedidosPorVenta = 0;
+        for(PedidoPlatoModelo i: modelo){
+            PlatoModelo plato = new PlatoModelo();
+            plato.buscarPlatoPorId(i.id_Plato);
+            precioPedidosPorVenta += plato.getPrecio() * i.cantidad;
+        }
+        return precioPedidosPorVenta;
+    }
+    public double precioVentasDiarias() throws Exception {
+        double precioPedidosPorVenta = 0;
+
+        //Obtener ids de todas las ventas diaria
+        VentaModelo ventasDiaria = new VentaModelo();
+        ArrayList<Integer> ventasDia = ventasDiaria.IdVentasDiaria();
+
+        //Obtener todos los pedidos asociados a esas ventas
+        PedidoPlatoModelo pedido = new PedidoPlatoModelo();
+        PlatoModelo plato = new PlatoModelo();
+
+        for (Integer i : ventasDia) {
+            ArrayList<PedidoPlatoModelo> pedidos= pedido.ObtenerPedidoPlatoPorVenta(i);
+
+            //Obtener precios de esos pedidos
+            for (PedidoPlatoModelo j : pedidos) {
+                PlatoModelo platopedido = new PlatoModelo();
+                platopedido = plato.buscarPlatoPorId(j.getId_Plato());
+                precioPedidosPorVenta += (platopedido.getPrecio() * j.cantidad);
+            }
+        }
+        return precioPedidosPorVenta;
+    }
+    public double precioVentasMensuales() throws Exception {
+        double precioPedidosPorVenta = 0;
+
+        //Obtener ids de todas las ventas mensuales
+        VentaModelo ventasMensuales = new VentaModelo();
+        ArrayList<Integer> ventasMes = ventasMensuales.IdVentasMensuales();
+
+        //Obtener todos los pedidos asociados a esas ventas
+        PedidoPlatoModelo pedido = new PedidoPlatoModelo();
+        PlatoModelo plato = new PlatoModelo();
+
+        for (Integer i : ventasMes) {
+            ArrayList<PedidoPlatoModelo> pedidos= pedido.ObtenerPedidoPlatoPorVenta(i);
+
+            //Obtener precios de esos pedidos
+            for (PedidoPlatoModelo j : pedidos) {
+                PlatoModelo platopedido = new PlatoModelo();
+                platopedido = plato.buscarPlatoPorId(j.getId_Plato());
+                precioPedidosPorVenta += (platopedido.getPrecio() * j.cantidad);
+            }
+        }
+        return precioPedidosPorVenta;
+    }
+
     public double ventasPlatoTodas() throws Exception {
         double ventaPlatos = 0;
         ArrayList<PedidoPlatoModelo> modelo = ObtenerPedidosPlatosTodos();
         for(PedidoPlatoModelo i: modelo){
-            ventaPlatos += i.precioPedidoPlato(i.id_Venta);
+            PlatoModelo plato = new PlatoModelo();
+            plato = plato.buscarPlatoPorId(i.id_Plato);
+            ventaPlatos += (plato.getPrecio()*i.cantidad);
         }
-       return ventaPlatos;
+        return ventaPlatos;
     }
 
     public String platoMasVendido() throws Exception {
@@ -110,4 +197,5 @@ public class PedidoPlatoModelo {
         }
         return platoMasVendido.getNombre();
     }
+
 }
