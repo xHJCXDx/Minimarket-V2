@@ -10,6 +10,7 @@ import static minimarket.Log4j2.Log4j2.*;
 
 public class UsuarioControlador {
     // Crear instancias de clases de modelo
+    AdministradorControlador AdminContro = new AdministradorControlador();
     VentaModelo vender = new VentaModelo();
     PedidoPlatoModelo venderPlato = new PedidoPlatoModelo();
     PedidoProductoModelo venderProducto = new PedidoProductoModelo();
@@ -24,10 +25,12 @@ public class UsuarioControlador {
             Date fecha = new Date(anio,mes,dia);
             String fechastr = Funciones.formatDate(fecha);
 
+            AdminContro.Mostrar_clientes();
             int idC = Funciones.LimitacionNumericaInt("Id Cliente:","ID",999999,1);
+            AdminContro.Mostrar_empleados();
             int idE = Funciones.LimitacionNumericaInt("Id Empleado:","ID",999999,1);
             vender.ingresarVenta(fechastr, idC,idE);
-
+            AdminContro.Mostrar_productos();
             int idP = Funciones.LimitacionNumericaInt("Id Producto:","ID",999999,1);
             int cantidad = Funciones.LimitacionNumericaInt("Cantidad:","CANTIDAD",999999,1);
             venderProducto.ingresarPedidoProducto(vender.ultimoRegistro().getId_venta(), idP, cantidad);
@@ -45,6 +48,7 @@ public class UsuarioControlador {
     public void Ingresar(){
         try{
             // Ingresar mercadería
+            AdminContro.Mostrar_productos();
             String nombre = Funciones.InputDialogNoVacio("Nombre del producto");
             int cantidad = Funciones.LimitacionNumericaInt("Cantidad:","CANTIDAD",999999,1);
             producto.modificarStock(nombre, cantidad);
@@ -114,8 +118,11 @@ public class UsuarioControlador {
             int dia = Funciones.LimitacionNumericaInt("Ingrese dia:","DIA",31,1);
             int mes = Funciones.LimitacionNumericaInt("Ingrese mes:","MES",12,1);
             int anio = Funciones.LimitacionNumericaInt("Ingrese año[ultimos dos digitos]:","AÑO",99,0);
+            AdminContro.Mostrar_clientes();
             int idC = Funciones.LimitacionNumericaInt("Id Cliente:","ID",999999,1);
+            AdminContro.Mostrar_empleados();
             int idE = Funciones.LimitacionNumericaInt("Id Empleado:","ID",999999,1);
+            AdminContro.Mostrar_productos();
             int idP = Funciones.LimitacionNumericaInt("Id Plato:","ID",999999,1);
             int cantidad = Funciones.LimitacionNumericaInt("Cantidad:","CANTIDAD",999999,1);
 
@@ -133,6 +140,7 @@ public class UsuarioControlador {
     public void Pago_C(){
         try{
             // Pagar cuenta
+            AdminContro.Mostrar_proveedores();
             int id_Proveedor = Funciones.LimitacionNumericaInt("Id Proveedor:","ID",999999,1);
             if (!proveedor.buscarProveedorPorId(id_Proveedor).isPago()) {
                 proveedor.pagarCuenta(id_Proveedor);
