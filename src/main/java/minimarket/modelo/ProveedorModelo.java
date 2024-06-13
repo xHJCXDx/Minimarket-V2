@@ -60,11 +60,11 @@ public class ProveedorModelo {
         this.pago = pago;
     }
 
-    public void ingresarProveedor(String nombre, String contacto, double cuentaProveedor, double pago) throws Exception {
+    public void ingresarProveedor(String nombre, String contacto, double cuentaProveedor, boolean pago) throws Exception {
         proveedordao.ingresarProveedor(nombre, contacto, cuentaProveedor, pago);
     }
 
-    public void modificarProveedor(int id, String nombre, String contacto, double cuentaProveedor, double pago) throws Exception {
+    public void modificarProveedor(int id, String nombre, String contacto, double cuentaProveedor, boolean pago) throws Exception {
         proveedordao.modificarProveedor(id, nombre, contacto, cuentaProveedor, pago);
     }
 

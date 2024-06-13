@@ -110,7 +110,7 @@ public class DAO {
                             "nombre VARCHAR(45) NOT NULL, " +
                             "contacto VARCHAR(45) NOT NULL, " +
                             "cuenta_Proveedor DOUBLE NULL, " +
-                            "pago DOUBLE NULL);"
+                            "pago BOOLEAN NULL);"
             };
 
             for (String sql : sqlStatements) {

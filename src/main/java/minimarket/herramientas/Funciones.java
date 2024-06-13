@@ -15,7 +15,12 @@ public class Funciones {
     }
 
     public static String formatDate2(Date date) {
-        String sdf = "20"+date.getYear()+"-"+date.getMonth();
+        String sdf = "";
+        if(date.getMonth()<10){
+            sdf = "20"+date.getYear()+"-0"+date.getMonth();
+        }else{
+            sdf = "20"+date.getYear()+"-"+date.getMonth();
+        }
         return sdf;
     }
 

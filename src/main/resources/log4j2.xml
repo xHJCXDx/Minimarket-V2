@@ -13,28 +13,25 @@
                 <SizeBasedTriggeringPolicy />
             </Policies>
         </RollingFile>
-        <!--
         <SMTP name="EmailLogger"
               subject="Comanda Solicitada"
-              to="xxxxxxx@alumnos.frm.utn.edu.ar"
-              from="xxxxxxx@alumnos.frm.utn.edu.ar"
+              to="x@alumnos.frm.utn.edu.ar"
+              from="x@alumnos.frm.utn.edu.ar"
               smtpHost="smtp.alumnos.frm.utn.edu.ar"
               smtpPort="25"
               smtpProtocol="smtp"
               ignoreExceptions="false"
-              smtpUsername="xxxxxxx@alumnos.frm.utn.edu.ar"
-              smtpPassword="xxxxxxxxxxxr">
+              smtpUsername="x@alumnos.frm.utn.edu.ar"
+              smtpPassword="x">
             <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} [%t] %-5level %logger{36} - %msg%n" />
             <ThresholdFilter level="DEBUG" onMatch="ACCEPT" onMismatch="DENY"/>
-        </SMTP> -->
+        </SMTP>
     </Appenders>
 
     <Loggers>
-        <!--
         <Logger name="EmailLogger" level="debug" additivity="false">
             <AppenderRef ref="EmailLogger" />
         </Logger>
-        -->
         <Logger name="FileLogger" level="info" additivity="false">
             <AppenderRef ref="FileLogger" />
         </Logger>
@@ -44,9 +41,9 @@
         </Logger>
 
         <Root level="INFO">
-            <!--
+
             <AppenderRef ref="EmailLogger" level="DEBUG"/>
-            -->
+
             <AppenderRef ref="FileLogger" level="INFO"/>
             <AppenderRef ref="ConsoleLogger" level="ERROR"/>
         </Root>

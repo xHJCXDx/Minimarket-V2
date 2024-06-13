@@ -21,7 +21,6 @@ public class AdministradorControlador {
         }catch (Exception e) {
             JOptionPane.showMessageDialog(null,"Error al crear el cliente");
             System.out.println(e.getMessage());
-            e.printStackTrace();
         }
     }
 
@@ -32,7 +31,6 @@ public class AdministradorControlador {
         }catch (Exception e) {
             JOptionPane.showMessageDialog(null,"Error al crear el empleado");
             System.out.println(e.getMessage());
-            e.printStackTrace();
         }
     }
 
@@ -44,7 +42,6 @@ public class AdministradorControlador {
         }catch (Exception e) {
             JOptionPane.showMessageDialog(null,"Error al crear el plato");
             System.out.println(e.getMessage());
-            e.printStackTrace();
         }
     }
     public void Ingresar_producto(){
@@ -56,20 +53,17 @@ public class AdministradorControlador {
         }catch (Exception e) {
             JOptionPane.showMessageDialog(null,"Error al crear el producto");
             System.out.println(e.getMessage());
-            e.printStackTrace();
         }
     }
     public void Ingresar_proveedor(){
         try {
             String nombre = Funciones.InputDialogNoVacio("Nombre:");
             String contacto = Funciones.InputDialogNoVacio("Contacto:");
-            double pago = Funciones.LimitacionNumericaDouble("Pago:","PAGO",999999.0,0.0);
             double cuentaProveedor = Funciones.LimitacionNumericaDouble("Cuenta:","CUENTA",999999.0,0.0);
-            proveedor.ingresarProveedor(nombre, contacto, cuentaProveedor, pago);
+            proveedor.ingresarProveedor(nombre, contacto, cuentaProveedor, false);
         }catch (Exception e) {
             JOptionPane.showMessageDialog(null,"Error al crear el proveedor");
             System.out.println(e.getMessage());
-            e.printStackTrace();
         }
     }
     //------------------------------------------------------------------------------------------------------------------
@@ -83,7 +77,6 @@ public class AdministradorControlador {
         }catch (Exception e) {
             JOptionPane.showMessageDialog(null,"Error al modificar el cliente");
             System.out.println(e.getMessage());
-            e.printStackTrace();
         }
     }
     public void Modificar_empleado(){
@@ -94,7 +87,6 @@ public class AdministradorControlador {
         }catch (Exception e) {
             JOptionPane.showMessageDialog(null,"Error al modificar el empleado");
             System.out.println(e.getMessage());
-            e.printStackTrace();
         }
     }
 
@@ -107,7 +99,6 @@ public class AdministradorControlador {
         }catch (Exception e) {
             JOptionPane.showMessageDialog(null,"Error al modificar el plato");
             System.out.println(e.getMessage());
-            e.printStackTrace();
         }
     }
     public void Modificar_producto(){
@@ -120,7 +111,6 @@ public class AdministradorControlador {
         }catch (Exception e) {
             JOptionPane.showMessageDialog(null,"Error al modificar el producto");
             System.out.println(e.getMessage());
-            e.printStackTrace();
         }
     }
     public void Modificar_proveedor(){
@@ -128,13 +118,11 @@ public class AdministradorControlador {
             int id = Funciones.LimitacionNumericaInt("Id:","ID",999999,1);
             String nombre = Funciones.InputDialogNoVacio("Nombre:");
             String contacto = Funciones.InputDialogNoVacio("Contacto:");
-            double pago = Funciones.LimitacionNumericaDouble("Pago:","PAGO",999999.0,0.0);
             double cuentaProveedor = Funciones.LimitacionNumericaDouble("Cuenta:","CUENTA",999999.0,0.0);
-            proveedor.modificarProveedor(id,nombre, contacto, cuentaProveedor, pago);
+            proveedor.modificarProveedor(id,nombre, contacto, cuentaProveedor, false);
         }catch (Exception e) {
             JOptionPane.showMessageDialog(null,"Error al modificar el proveedor");
             System.out.println(e.getMessage());
-            e.printStackTrace();
         }
     }
     //------------------------------------------------------------------------------------------------------------------
@@ -155,7 +143,6 @@ public class AdministradorControlador {
         }catch (Exception e) {
             JOptionPane.showMessageDialog(null,"Error al mostrar los clientes");
             System.out.println(e.getMessage());
-            e.printStackTrace();
         }
     }
 
@@ -175,7 +162,6 @@ public class AdministradorControlador {
         }catch (Exception e) {
             JOptionPane.showMessageDialog(null,"Error al mostrar los empleados");
             System.out.println(e.getMessage());
-            e.printStackTrace();
         }
     }
 
@@ -196,7 +182,6 @@ public class AdministradorControlador {
         }catch (Exception e) {
             JOptionPane.showMessageDialog(null,"Error al mostrar los platos");
             System.out.println(e.getMessage());
-            e.printStackTrace();
         }
     }
 
@@ -216,7 +201,6 @@ public class AdministradorControlador {
         }catch (Exception e) {
             JOptionPane.showMessageDialog(null,"Error al mostrar los productos");
             System.out.println(e.getMessage());
-            e.printStackTrace();
         }
     }
 
@@ -236,7 +220,6 @@ public class AdministradorControlador {
         }catch (Exception e) {
             JOptionPane.showMessageDialog(null,"Error al mostrar los proveedores");
             System.out.println(e.getMessage());
-            e.printStackTrace();
         }
     }
 
@@ -249,7 +232,6 @@ public class AdministradorControlador {
         }catch (Exception e) {
             JOptionPane.showMessageDialog(null,"Error al eliminar el cliente");
             System.out.println(e.getMessage());
-            e.printStackTrace();
         }
     }
     public void Eliminar_empleado(){
@@ -259,7 +241,6 @@ public class AdministradorControlador {
         }catch (Exception e) {
             JOptionPane.showMessageDialog(null,"Error al eliminar el empleado");
             System.out.println(e.getMessage());
-            e.printStackTrace();
         }
     }
 
@@ -270,7 +251,6 @@ public class AdministradorControlador {
         }catch (Exception e) {
             JOptionPane.showMessageDialog(null,"Error al eliminar el plato");
             System.out.println(e.getMessage());
-            e.printStackTrace();
         }
     }
     public void Eliminar_producto(){
@@ -280,7 +260,6 @@ public class AdministradorControlador {
         }catch (Exception e) {
             JOptionPane.showMessageDialog(null,"Error al eliminar el producto");
             System.out.println(e.getMessage());
-            e.printStackTrace();
         }
     }
     public void Eliminar_proveedor(){
@@ -290,7 +269,6 @@ public class AdministradorControlador {
         }catch (Exception e) {
             JOptionPane.showMessageDialog(null,"Error al eliminar el proveedor");
             System.out.println(e.getMessage());
-            e.printStackTrace();
         }
     }
 

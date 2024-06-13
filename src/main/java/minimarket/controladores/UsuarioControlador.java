@@ -41,7 +41,6 @@ public class UsuarioControlador {
             JOptionPane.showMessageDialog(null,"Error al vender producto");
             System.out.println("Error al vender producto");
             System.out.println(e.getMessage());
-            e.printStackTrace();
         }
     }
 
@@ -58,7 +57,6 @@ public class UsuarioControlador {
             JOptionPane.showMessageDialog(null,"Error al ingresar producto");
             System.out.println("Error al ingresar producto");
             System.out.println(e.getMessage());
-            e.printStackTrace();
         }
     }
     public void ConsultaDia(){
@@ -68,6 +66,7 @@ public class UsuarioControlador {
             int anio = Funciones.LimitacionNumericaInt("Ingrese año[ultimos dos dijitos]:","AÑO",99,0);
             Date fecha = new Date(anio,mes,dia);
             String fechastr = Funciones.formatDate(fecha);
+            System.out.println(fechastr);
             // Consultar ventas
             System.out.println("Venta Diaria: "+(venderPlato.precioVentasDiarias(fechastr)+venderProducto.precioVentasDiarias(fechastr)));
             JOptionPane.showMessageDialog(null,"Venta Diaria: "+(venderPlato.precioVentasDiarias(fechastr)+venderProducto.precioVentasDiarias(fechastr)));
@@ -75,15 +74,15 @@ public class UsuarioControlador {
             JOptionPane.showMessageDialog(null,"Error al consultar ventas");
             System.out.println("Error al consultar ventas");
             System.out.println(e.getMessage());
-            e.printStackTrace();
         }
     }
     public void ConsultaMen(){
         try{
             int mes = Funciones.LimitacionNumericaInt("Ingrese mes:","MES",12,1);
             int anio = Funciones.LimitacionNumericaInt("Ingrese año[ultimos dos dijitos]:","AÑO",99,0);
-            Date fecha = new Date(anio,mes,0);
+            Date fecha = new Date(anio,mes,1);
             String fechastr = Funciones.formatDate2(fecha);
+            System.out.println(fechastr);
             // Consultar ventas
             System.out.println("Venta Mensual: "+(venderPlato.precioVentasMensuales(fechastr)+venderProducto.precioVentasMensuales(fechastr)));
             JOptionPane.showMessageDialog(null,"Venta Mensual: "+(venderPlato.precioVentasMensuales(fechastr)+venderProducto.precioVentasMensuales(fechastr)));
@@ -91,7 +90,6 @@ public class UsuarioControlador {
             JOptionPane.showMessageDialog(null,"Error al consultar ventas");
             System.out.println("Error al consultar ventas");
             System.out.println(e.getMessage());
-            e.printStackTrace();
         }
     }
     public void Balance(){
@@ -109,7 +107,6 @@ public class UsuarioControlador {
             JOptionPane.showMessageDialog(null,"Error al calcular el balance");
             System.out.println("Error al calcular el balance");
             System.out.println(e.getMessage());
-            e.printStackTrace();
         }
     }
     public void Comanda(){
@@ -134,7 +131,6 @@ public class UsuarioControlador {
             JOptionPane.showMessageDialog(null,"Error al solicitar comanda");
             System.out.println("Error al solicitar comanda");
             System.out.println(e.getMessage());
-            e.printStackTrace();
         }
     }
     public void Pago_C(){
@@ -156,7 +152,6 @@ public class UsuarioControlador {
             JOptionPane.showMessageDialog(null,"Error al pagar cuenta");
             System.out.println("Error al pagar cuenta");
             System.out.println(e.getMessage());
-            e.printStackTrace();
         }
     }
     public void Informacion(){
@@ -168,7 +163,6 @@ public class UsuarioControlador {
             JOptionPane.showMessageDialog(null,"Error al consultar información");
             System.out.println("Error al consultar información");
             System.out.println(e.getMessage());
-            e.printStackTrace();
         }
     }
 }

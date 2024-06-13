@@ -11,13 +11,13 @@ public class ProveedorDAO extends DAO {
     public ProveedorDAO(ProveedorModelo proveedor) {
     }
 
-    public void ingresarProveedor(String nombre, String contacto, double cuentaProveedor, double pago) throws Exception {
+    public void ingresarProveedor(String nombre, String contacto, double cuentaProveedor, boolean pago) throws Exception {
         String sql = "INSERT INTO Proveedor (nombre, contacto, cuenta_Proveedor, pago) VALUES ('" + nombre + "', '" + contacto + "', " + cuentaProveedor + ", " + pago + ")";
         ejecutarSQL(sql);
     }
 
 
-    public void modificarProveedor(int id, String nombre, String contacto, double cuentaProveedor, double pago) throws Exception {
+    public void modificarProveedor(int id, String nombre, String contacto, double cuentaProveedor, boolean pago) throws Exception {
         String sql = "UPDATE Proveedor SET nombre = '" + nombre + "', contacto = '" + contacto + "', cuenta_Proveedor = " + cuentaProveedor + ", pago = " + pago + " WHERE id_Proveedor = " + id;
         ejecutarSQL(sql);
     }
@@ -52,7 +52,7 @@ public class ProveedorDAO extends DAO {
         String sql = "SELECT * FROM Proveedor";
         ResultSet resultado = consultarBase(sql);
         while (resultado.next()) {
-            String proveedor = "ID: " + resultado.getInt("id_Proveedor") + ", Nombre: " + resultado.getString("nombre") + ", Contacto: " + resultado.getString("contacto") + ", Cuenta Proveedor: " + resultado.getDouble("cuenta_Proveedor") + ", Pago: " + resultado.getDouble("pago");
+            String proveedor = "ID: " + resultado.getInt("id_Proveedor") + ", Nombre: " + resultado.getString("nombre") + ", Contacto: " + resultado.getString("contacto") + ", Cuenta Proveedor: " + resultado.getDouble("cuenta_Proveedor") + ", Pago: " + resultado.getBoolean("pago");
             proveedores.add(proveedor);
         }
         desconectarBase();

@@ -102,7 +102,7 @@ public class VentaModelo {
         return ids;
     }
     public ArrayList<Integer> IdVentasMensuales(String fecha) throws Exception {
-        ArrayList<VentaModelo> ventas = ventadao.obtenerVentasMensuales(fecha);
+        ArrayList<VentaModelo> ventas = obtenerVentasMensuales(fecha);
         ArrayList<Integer> ids = new ArrayList<>();
         for(VentaModelo i: ventas){
             int id = i.getId_venta();
