@@ -71,9 +71,9 @@ public class VentaDAO extends DAO {
         desconectarBase();
         return ventas;
     }
-    public ArrayList<VentaModelo> obtenerVentasDiarias() throws Exception {
+    public ArrayList<VentaModelo> obtenerVentasDiarias(String fecha) throws Exception {
         ArrayList<VentaModelo> ventas = new ArrayList<>();
-        String sql = "SELECT * FROM Venta WHERE fecha = '2024-06-10'";
+        String sql = "SELECT * FROM Venta WHERE fecha = '"+ fecha +"'";
         ResultSet resultado = consultarBase(sql);
         while (resultado.next()) {
             VentaModelo venta = new VentaModelo();
@@ -86,9 +86,9 @@ public class VentaDAO extends DAO {
         desconectarBase();
         return ventas;
     }
-    public ArrayList<VentaModelo> obtenerVentasMensuales() throws Exception {
+    public ArrayList<VentaModelo> obtenerVentasMensuales(String fech) throws Exception {
         ArrayList<VentaModelo> ventas = new ArrayList<>();
-        String sql = "SELECT * FROM Venta WHERE fecha like '2024-06%'";
+        String sql = "SELECT * FROM Venta WHERE fecha like '"+ fech + "%'";
         ResultSet resultado = consultarBase(sql);
         while (resultado.next()) {
             VentaModelo venta = new VentaModelo();

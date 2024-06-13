@@ -59,9 +59,14 @@ public class UsuarioControlador {
     }
     public void ConsultaDia(){
         try{
+            int dia = Funciones.LimitacionNumericaInt("Ingrese dia:","DIA",31,1);
+            int mes = Funciones.LimitacionNumericaInt("Ingrese mes:","MES",12,1);
+            int anio = Funciones.LimitacionNumericaInt("Ingrese año[ultimos dos dijitos]:","AÑO",99,0);
+            Date fecha = new Date(anio,mes,dia);
+            String fechastr = Funciones.formatDate(fecha);
             // Consultar ventas
-            System.out.println("Venta Diaria: "+(venderPlato.precioVentasDiarias()+venderProducto.precioVentasDiarias()));
-            JOptionPane.showMessageDialog(null,"Venta Diaria: "+(venderPlato.precioVentasDiarias()+venderProducto.precioVentasDiarias()));
+            System.out.println("Venta Diaria: "+(venderPlato.precioVentasDiarias(fechastr)+venderProducto.precioVentasDiarias(fechastr)));
+            JOptionPane.showMessageDialog(null,"Venta Diaria: "+(venderPlato.precioVentasDiarias(fechastr)+venderProducto.precioVentasDiarias(fechastr)));
         } catch (Exception e){
             JOptionPane.showMessageDialog(null,"Error al consultar ventas");
             System.out.println("Error al consultar ventas");
@@ -71,9 +76,13 @@ public class UsuarioControlador {
     }
     public void ConsultaMen(){
         try{
+            int mes = Funciones.LimitacionNumericaInt("Ingrese mes:","MES",12,1);
+            int anio = Funciones.LimitacionNumericaInt("Ingrese año[ultimos dos dijitos]:","AÑO",99,0);
+            Date fecha = new Date(anio,mes,0);
+            String fechastr = Funciones.formatDate2(fecha);
             // Consultar ventas
-            System.out.println("Venta Mensual: "+(venderPlato.precioVentasMensuales()+venderProducto.precioVentasMensuales()));
-            JOptionPane.showMessageDialog(null,"Venta Mensual: "+(venderPlato.precioVentasMensuales()+venderProducto.precioVentasMensuales()));
+            System.out.println("Venta Mensual: "+(venderPlato.precioVentasMensuales(fechastr)+venderProducto.precioVentasMensuales(fechastr)));
+            JOptionPane.showMessageDialog(null,"Venta Mensual: "+(venderPlato.precioVentasMensuales(fechastr)+venderProducto.precioVentasMensuales(fechastr)));
         } catch (Exception e){
             JOptionPane.showMessageDialog(null,"Error al consultar ventas");
             System.out.println("Error al consultar ventas");

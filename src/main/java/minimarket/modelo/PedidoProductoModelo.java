@@ -116,12 +116,12 @@ public class PedidoProductoModelo {
         }
         return ventaProductos;
     }
-    public double precioVentasDiarias() throws Exception {
+    public double precioVentasDiarias(String fecha) throws Exception {
         double precioPedidosPorVenta = 0;
 
         //Obtener ids de todas las ventas diaria
         VentaModelo ventasDiaria = new VentaModelo();
-        ArrayList<Integer> ventasDia = ventasDiaria.IdVentasDiaria();
+        ArrayList<Integer> ventasDia = ventasDiaria.IdVentasDiaria(fecha);
 
         //Obtener todos los pedidos asociados a esas ventas
         PedidoProductoModelo pedido = new PedidoProductoModelo();
@@ -140,12 +140,12 @@ public class PedidoProductoModelo {
         return precioPedidosPorVenta;
     }
 
-    public double precioVentasMensuales() throws Exception {
+    public double precioVentasMensuales(String fecha) throws Exception {
         double precioPedidosPorVenta = 0;
 
         //Obtener ids de todas las ventasMensual
         VentaModelo ventasMensual = new VentaModelo();
-        ArrayList<Integer> ventasMes= ventasMensual.IdVentasMensuales();
+        ArrayList<Integer> ventasMes= ventasMensual.IdVentasMensuales(fecha);
 
         //Obtener todos los pedidos asociados a esas ventas
         PedidoProductoModelo pedido = new PedidoProductoModelo();

@@ -32,7 +32,7 @@ public class Main {
                 System.out.println("Error al unirse a la base de datos: " + e.getMessage());
             }
             try {
-                boolean crear_Tabla=Funciones.CuadroDialogoVoF("Crear tablas:","Base de datos");
+                boolean crear_Tabla=Funciones.CuadroDialogoVoF("Crear base de datos:","Base de datos");
                 if(crear_Tabla){
                     DAO dao = new DAO();
                     dao.crearTablas();

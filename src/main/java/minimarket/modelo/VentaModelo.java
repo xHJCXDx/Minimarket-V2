@@ -86,23 +86,23 @@ public class VentaModelo {
     public ArrayList<VentaModelo> obtenerVentasTodas() throws Exception {
         return ventadao.obtenerVentasTodas();
     }
-    public ArrayList<VentaModelo> obtenerVentasMensuales() throws Exception {
-        return ventadao.obtenerVentasMensuales();
+    public ArrayList<VentaModelo> obtenerVentasMensuales(String fecha) throws Exception {
+        return ventadao.obtenerVentasMensuales(fecha);
     }
-    public ArrayList<VentaModelo> obtenerVentasDiarias() throws Exception {
-        return ventadao.obtenerVentasDiarias();
+    public ArrayList<VentaModelo> obtenerVentasDiarias(String fecha) throws Exception {
+        return ventadao.obtenerVentasDiarias(fecha);
     }
 
-    public ArrayList<Integer>IdVentasDiaria() throws Exception {
-        ArrayList<VentaModelo> ventas= obtenerVentasDiarias();
+    public ArrayList<Integer>IdVentasDiaria(String fecha) throws Exception {
+        ArrayList<VentaModelo> ventas= obtenerVentasDiarias(fecha);
         ArrayList<Integer> ids = new ArrayList<>();
         for(VentaModelo i: ventas){
             ids.add(i.getId_venta());
         }
         return ids;
     }
-    public ArrayList<Integer> IdVentasMensuales() throws Exception {
-        ArrayList<VentaModelo> ventas = ventadao.obtenerVentasMensuales();
+    public ArrayList<Integer> IdVentasMensuales(String fecha) throws Exception {
+        ArrayList<VentaModelo> ventas = ventadao.obtenerVentasMensuales(fecha);
         ArrayList<Integer> ids = new ArrayList<>();
         for(VentaModelo i: ventas){
             int id = i.getId_venta();

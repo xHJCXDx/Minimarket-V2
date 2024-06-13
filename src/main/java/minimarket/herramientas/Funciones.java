@@ -14,6 +14,11 @@ public class Funciones {
         return sdf;
     }
 
+    public static String formatDate2(Date date) {
+        String sdf = "20"+date.getYear()+"-"+date.getMonth();
+        return sdf;
+    }
+
     //Contraseña simple
     public static boolean ComparacionString(String cadena1, String cadena2) {
         return cadena1.equalsIgnoreCase(cadena2);
