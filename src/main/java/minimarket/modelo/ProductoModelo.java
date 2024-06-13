@@ -15,11 +15,10 @@ public class ProductoModelo {
     public ProductoModelo() {
     }
 
-    public ProductoModelo(String nombre, int stock, double precio, ProductoDAO productodao) {
+    public ProductoModelo(String nombre, int stock, double precio) {
         this.nombre = nombre;
         this.stock = stock;
         this.precio = precio;
-        this.productodao = productodao;
     }
 
 
@@ -61,24 +60,29 @@ public class ProductoModelo {
         productodao.modificarProducto(id, nombre,stock,precio);
     }
 
-    public void modificarStock(String nombre, int cantidadIngresada) throws Exception {
-        ProductoModelo productoModificar = productodao.buscarProductoPorNombre(nombre);
-        int stockNuevo = productoModificar.getStock()+cantidadIngresada;
-        productodao.modificarStock(productoModificar.getId_Producto(), stockNuevo);
-    }
 
     public void eliminarProducto(int id) throws Exception {
         productodao. eliminarProducto(id);
     }
 
+    public ProductoModelo obtenerProducto(int id) throws Exception {
+        return productodao.obtenerProductoPorId(id);
+    }
 
-    public String buscarProductoPorId(int id) throws Exception {
-        return productodao.buscarProductoPorId(id);
+    public ArrayList<ProductoModelo> obtenerProductosTodos() throws Exception {
+        return productodao.obtenerProductoTodos();
+    }
+    public String mostrarProductoPorId(int id) throws Exception {
+        return productodao.mostrarProductoPorId(id);
     }
 
     public ArrayList<String> listarProductos() throws Exception {
-        return productodao.buscarProductos();
+        return productodao.listarProductos();
     }
 
-
+    public void modificarStock(String nombre, int cantidadIngresada) throws Exception {
+        ProductoModelo productoModificar = productodao.buscarProductoPorNombre(nombre);
+        int stockNuevo = productoModificar.getStock()+cantidadIngresada;
+        productodao.modificarStock(productoModificar.getId_Producto(), stockNuevo);
+    }
 }

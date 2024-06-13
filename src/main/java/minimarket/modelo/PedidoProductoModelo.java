@@ -10,7 +10,8 @@ public class PedidoProductoModelo {
     private int id_Producto;
     private int cantidad;
     private ProductoModelo productoPedido;
-    private final PedidoProductoDAO pedidoProductodao = new PedidoProductoDAO(this);
+    private VentaModelo venta;
+    private PedidoProductoDAO pedidoProductodao = new PedidoProductoDAO(this);
 
     public PedidoProductoModelo() {
     }
@@ -55,26 +56,111 @@ public class PedidoProductoModelo {
 
     public void ingresarPedidoProducto(int idventa, int idProducto, int cantidad) throws Exception {
         pedidoProductodao.ingresarPedidoProducto(idventa, idProducto, cantidad);
+        ProductoModelo productoVendido = new ProductoModelo();
+        productoVendido.obtenerProducto(idProducto);
+        productoVendido.modificarStock(productoVendido.getNombre(),(-cantidad));
     }
-    public PedidoProductoModelo buscarPedidoPlatoPorVenta(int id_venta) throws Exception {
-        return pedidoProductodao.buscarPedidoProductoPorVenta(id_venta);
+    public void modificarPedidoProducto(int id, int idProducto, int cantidad) throws Exception {
+        pedidoProductodao.modificarPedidoProducto(id, idProducto, cantidad);
     }
-    public double precioPedidoProducto(int id_venta) throws Exception {
-        PedidoProductoModelo modelo = new PedidoProductoModelo();
-        modelo = buscarPedidoPlatoPorVenta(id_venta);
-        ProductoModelo producto = new ProductoModelo();
-        producto.buscarProductoPorId(modelo.id_Producto);
-        return producto.getPrecio()*modelo.cantidad;
+    public void eliminarPedidoProductoPorVenta(int id) throws Exception {
+        pedidoProductodao.eliminarPedidoProductoPorVenta(id);
+        ArrayList<PedidoProductoModelo> productoEliminado = new ArrayList<>();
+        productoEliminado = ObtenerPedidoProductoPorVenta(id);
+        for (PedidoProductoModelo i: productoEliminado) {
+            ProductoModelo producto = new ProductoModelo();
+            producto.obtenerProducto(i.id_Producto);
+            producto.modificarStock(producto.getNombre(),(i.cantidad));
+        }
+    }
+
+    public ArrayList<PedidoProductoModelo> ObtenerPedidoProductoPorVenta(int id_venta) throws Exception {
+        return pedidoProductodao.ObtenerPedidoProductoPorVenta(id_venta);
     }
     public ArrayList<PedidoProductoModelo> ObtenerPedidostodos() throws Exception {
         return pedidoProductodao.ObtenerPedidostodos();
     }
+
+    public String mostrarPedidoProducto(int id_Venta) throws Exception {
+        ArrayList<PedidoProductoModelo> modelo = new ArrayList<>();
+        modelo = ObtenerPedidoProductoPorVenta(id_Venta);
+        String detalleVenta = "";
+        for(PedidoProductoModelo i: modelo){
+            detalleVenta="Cantidad "+ i.cantidad;
+            ProductoModelo producto = new ProductoModelo();
+            producto.obtenerProducto(i.id_Producto);
+            detalleVenta += "  Producto: "+producto.getNombre()+"  Precio: "+producto.getPrecio();
+        }
+        return detalleVenta;
+    }
+
+    public double precioPedidoProducto(int id_venta) throws Exception {
+        ArrayList<PedidoProductoModelo> modelo = new ArrayList<>();
+        modelo = ObtenerPedidoProductoPorVenta(id_venta);
+        double precioPedidosPorVenta = 0;
+        for(PedidoProductoModelo i: modelo){
+            ProductoModelo producto = new ProductoModelo();
+            producto.obtenerProducto(i.id_Producto);
+            precioPedidosPorVenta += producto.getPrecio()*i.cantidad;
+        };
+        return precioPedidosPorVenta;
+    }
+
     public double ventasProductoTodas() throws Exception {
         double ventaProductos = 0;
         ArrayList<PedidoProductoModelo> modelo = ObtenerPedidostodos();
         for(PedidoProductoModelo i: modelo){
-            ventaProductos += i.precioPedidoProducto(i.id_venta);
+            ProductoModelo producto = new ProductoModelo();
+            producto = producto.obtenerProducto(i.id_Producto);
+            ventaProductos += producto.getPrecio()*i.cantidad;
         }
         return ventaProductos;
+    }
+    public double precioVentasDiarias() throws Exception {
+        double precioPedidosPorVenta = 0;
+
+        //Obtener ids de todas las ventas diaria
+        VentaModelo ventasDiaria = new VentaModelo();
+        ArrayList<Integer> ventasDia = ventasDiaria.IdVentasDiaria();
+
+        //Obtener todos los pedidos asociados a esas ventas
+        PedidoProductoModelo pedido = new PedidoProductoModelo();
+        ProductoModelo producto = new ProductoModelo();
+
+        for (Integer i : ventasDia) {
+            ArrayList<PedidoProductoModelo> pedidos= pedido.ObtenerPedidoProductoPorVenta(i);
+
+            //Obtener precios de esos pedidos
+            for (PedidoProductoModelo j : pedidos) {
+                ProductoModelo productopedido = new ProductoModelo();
+                productopedido = producto.obtenerProducto(j.getId_Producto());
+                precioPedidosPorVenta += (productopedido.getPrecio() * j.cantidad);
+            }
+        }
+        return precioPedidosPorVenta;
+    }
+
+    public double precioVentasMensuales() throws Exception {
+        double precioPedidosPorVenta = 0;
+
+        //Obtener ids de todas las ventasMensual
+        VentaModelo ventasMensual = new VentaModelo();
+        ArrayList<Integer> ventasMes= ventasMensual.IdVentasMensuales();
+
+        //Obtener todos los pedidos asociados a esas ventas
+        PedidoProductoModelo pedido = new PedidoProductoModelo();
+        ProductoModelo producto = new ProductoModelo();
+
+        for (Integer i : ventasMes) {
+            ArrayList<PedidoProductoModelo> pedidos= pedido.ObtenerPedidoProductoPorVenta(i);
+
+            //Obtener precios de esos pedidos
+            for (PedidoProductoModelo j : pedidos) {
+                ProductoModelo productopedido = new ProductoModelo();
+                productopedido = producto.obtenerProducto(j.getId_Producto());
+                precioPedidosPorVenta += (productopedido.getPrecio() * j.cantidad);
+            }
+        }
+        return precioPedidosPorVenta;
     }
 }

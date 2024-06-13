@@ -26,29 +26,20 @@ public class PedidoProductoDAO extends DAO {
         ejecutarSQL(sql);
     }
 
-    public PedidoProductoModelo buscarPedidoProductoPorVenta(int id) throws Exception {
+    public ArrayList<PedidoProductoModelo> ObtenerPedidoProductoPorVenta(int id) throws Exception {
         String sql = "SELECT * FROM PedidoProducto WHERE id_Venta = " + id;
-        PedidoProductoModelo producto = new PedidoProductoModelo();
+        ArrayList<PedidoProductoModelo> productos = new ArrayList<>();
         ResultSet resultado = consultarBase(sql);
         if (resultado.next()) {
-          producto.setId_PedidoProducto(resultado.getInt("id_Pedido_Producto"));
-          producto.setId_Producto(resultado.getInt("id_Producto"));
-          producto.setCantidad(resultado.getInt("cantidad"));
+            PedidoProductoModelo producto = new PedidoProductoModelo();
+            producto.setId_PedidoProducto(resultado.getInt("id_Pedido_Producto"));
+            producto.setId_Producto(resultado.getInt("id_Producto"));
+            producto.setCantidad(resultado.getInt("cantidad"));
+            productos.add(producto);
         }
-        return producto;
+        return productos;
     }
 
-    public ArrayList<String> buscarPedidosProducto() throws Exception {
-        ArrayList<String> pedidosProducto = new ArrayList<>();
-        String sql = "SELECT * FROM PedidoProducto";
-        ResultSet resultado = consultarBase(sql);
-        while (resultado.next()) {
-            String pedidoProducto = "ID: " + resultado.getInt("id_Pedido_Producto") + ", ID Producto: " + resultado.getInt("id_Producto") + ", Cantidad: " + resultado.getString("cantidad");
-            pedidosProducto.add(pedidoProducto);
-        }
-        desconectarBase();
-        return pedidosProducto;
-    }
 
     public ArrayList<PedidoProductoModelo> ObtenerPedidostodos() throws Exception {
         ArrayList<PedidoProductoModelo> pedidosProducto = new ArrayList<>();
@@ -60,6 +51,18 @@ public class PedidoProductoDAO extends DAO {
             modelo.setCantidad(resultado.getInt("cantidad"));
             modelo.setId_Producto(resultado.getInt("id_Producto"));
             pedidosProducto.add(modelo);
+        }
+        desconectarBase();
+        return pedidosProducto;
+    }
+
+    public ArrayList<String> listarPedidosProducto() throws Exception {
+        ArrayList<String> pedidosProducto = new ArrayList<>();
+        String sql = "SELECT * FROM PedidoProducto";
+        ResultSet resultado = consultarBase(sql);
+        while (resultado.next()) {
+            String pedidoProducto = "ID: " + resultado.getInt("id_Pedido_Producto") + ", ID Producto: " + resultado.getInt("id_Producto") + ", Cantidad: " + resultado.getString("cantidad");
+            pedidosProducto.add(pedidoProducto);
         }
         desconectarBase();
         return pedidosProducto;

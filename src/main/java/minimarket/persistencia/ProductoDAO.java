@@ -35,14 +35,7 @@ public class ProductoDAO extends DAO {
     }
 
 
-    public String buscarProductoPorId(int id) throws Exception {
-        String sql = "SELECT * FROM Producto WHERE id_Producto = " + id;
-        ResultSet resultado = consultarBase(sql);
-        if (resultado.next()) {
-            return "ID: " + resultado.getInt("id_Producto") + ", Nombre: " + resultado.getString("nombre") + ", Stock: " + resultado.getInt("stock") + ", Precio: " + resultado.getDouble("precio");
-        }
-        return null;
-    }
+
     public ProductoModelo buscarProductoPorNombre(String Nombre) throws Exception {
         ProductoModelo ProductoBuscado = new ProductoModelo();
         String sql = "SELECT * FROM Producto WHERE Nombre = '" + Nombre+"'";
@@ -55,8 +48,41 @@ public class ProductoDAO extends DAO {
         }
         return ProductoBuscado;
     }
-
-    public ArrayList<String> buscarProductos() throws Exception {
+    public ProductoModelo obtenerProductoPorId(int id) throws Exception {
+        ProductoModelo ProductoBuscado = new ProductoModelo();
+        String sql = "SELECT * FROM Producto WHERE id_Producto = '" + id+"'";
+        ResultSet resultado = consultarBase(sql);
+        if (resultado.next()) {
+            ProductoBuscado.setId_Producto(resultado.getInt("id_Producto"));
+            ProductoBuscado.setNombre(resultado.getString("nombre"));
+            ProductoBuscado.setStock(resultado.getInt("stock"));
+            ProductoBuscado.setPrecio(resultado.getDouble("precio"));
+        }
+        return ProductoBuscado;
+    }
+    public ArrayList<ProductoModelo> obtenerProductoTodos() throws Exception {
+        ArrayList<ProductoModelo> Productos = new ArrayList<>();
+        String sql = "SELECT * FROM Producto";
+        ResultSet resultado = consultarBase(sql);
+        while (resultado.next()) {
+            ProductoModelo ProductoBuscado = new ProductoModelo();
+            ProductoBuscado.setId_Producto(resultado.getInt("id_Producto"));
+            ProductoBuscado.setNombre(resultado.getString("nombre"));
+            ProductoBuscado.setStock(resultado.getInt("stock"));
+            ProductoBuscado.setPrecio(resultado.getDouble("precio"));
+            Productos.add(ProductoBuscado);
+        }
+        return Productos;
+    }
+    public String mostrarProductoPorId(int id) throws Exception {
+        String sql = "SELECT * FROM Producto WHERE id_Producto = " + id;
+        ResultSet resultado = consultarBase(sql);
+        if (resultado.next()) {
+            return "ID: " + resultado.getInt("id_Producto") + ", Nombre: " + resultado.getString("nombre") + ", Stock: " + resultado.getInt("stock") + ", Precio: " + resultado.getDouble("precio");
+        }
+        return null;
+    }
+    public ArrayList<String> listarProductos() throws Exception {
         ArrayList<String> productos = new ArrayList<>();
         String sql = "SELECT * FROM Producto";
         ResultSet resultado = consultarBase(sql);
@@ -67,4 +93,5 @@ public class ProductoDAO extends DAO {
         desconectarBase();
         return productos;
     }
+
 }

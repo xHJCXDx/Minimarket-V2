@@ -18,9 +18,9 @@ public class UsuarioControlador {
 
     public void Vender(){
         try{
-            int dia = Funciones.LimitacionNumericaInt("Ingrese dia:","DIA",31,1)-1;
-            int mes = Funciones.LimitacionNumericaInt("Ingrese mes:","MES",12,1)-1;
-            int anio = Funciones.LimitacionNumericaInt("Ingrese año[ultimos dos dijitos]:","AÑO",99,0)-1;
+            int dia = Funciones.LimitacionNumericaInt("Ingrese dia:","DIA",31,1);
+            int mes = Funciones.LimitacionNumericaInt("Ingrese mes:","MES",12,1);
+            int anio = Funciones.LimitacionNumericaInt("Ingrese año[ultimos dos dijitos]:","AÑO",99,0);
             Date fecha = new Date(anio,mes,dia);
             String fechastr = Funciones.formatDate(fecha);
 
@@ -60,8 +60,8 @@ public class UsuarioControlador {
     public void ConsultaDia(){
         try{
             // Consultar ventas
-            System.out.println("Venta Diaria: "+vender.obtenerVentasDiarias());
-            JOptionPane.showMessageDialog(null,"Venta Diaria: "+vender.obtenerVentasDiarias());
+            System.out.println("Venta Diaria: "+(venderPlato.precioVentasDiarias()+venderProducto.precioVentasDiarias()));
+            JOptionPane.showMessageDialog(null,"Venta Diaria: "+(venderPlato.precioVentasDiarias()+venderProducto.precioVentasDiarias()));
         } catch (Exception e){
             JOptionPane.showMessageDialog(null,"Error al consultar ventas");
             System.out.println("Error al consultar ventas");
@@ -72,8 +72,8 @@ public class UsuarioControlador {
     public void ConsultaMen(){
         try{
             // Consultar ventas
-            System.out.println("Venta Mensual: "+vender.obtenerVentasMensuales());
-            JOptionPane.showMessageDialog(null,"Venta Mensual: "+vender.obtenerVentasMensuales());
+            System.out.println("Venta Mensual: "+(venderPlato.precioVentasMensuales()+venderProducto.precioVentasMensuales()));
+            JOptionPane.showMessageDialog(null,"Venta Mensual: "+(venderPlato.precioVentasMensuales()+venderProducto.precioVentasMensuales()));
         } catch (Exception e){
             JOptionPane.showMessageDialog(null,"Error al consultar ventas");
             System.out.println("Error al consultar ventas");
@@ -102,9 +102,9 @@ public class UsuarioControlador {
     public void Comanda(){
         try{
             // Solicitar comanda a la cocina
-            int dia = Funciones.LimitacionNumericaInt("Ingrese dia:","DIA",31,1)-1;
-            int mes = Funciones.LimitacionNumericaInt("Ingrese mes:","MES",12,1)-1;
-            int anio = Funciones.LimitacionNumericaInt("Ingrese año[ultimos dos digitos]:","AÑO",99,0)-1;
+            int dia = Funciones.LimitacionNumericaInt("Ingrese dia:","DIA",31,1);
+            int mes = Funciones.LimitacionNumericaInt("Ingrese mes:","MES",12,1);
+            int anio = Funciones.LimitacionNumericaInt("Ingrese año[ultimos dos digitos]:","AÑO",99,0);
             int idC = Funciones.LimitacionNumericaInt("Id Cliente:","ID",999999,1);
             int idE = Funciones.LimitacionNumericaInt("Id Empleado:","ID",999999,1);
             int idP = Funciones.LimitacionNumericaInt("Id Plato:","ID",999999,1);
