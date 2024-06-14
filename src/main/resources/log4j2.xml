@@ -15,14 +15,14 @@
         </RollingFile>
         <SMTP name="EmailLogger"
               subject="Comanda Solicitada"
-              to="x@alumnos.frm.utn.edu.ar"
-              from="x@alumnos.frm.utn.edu.ar"
+              to="xxxxxxxxx@alumnos.frm.utn.edu.ar"
+              from="xxxxxxxxx@alumnos.frm.utn.edu.ar"
               smtpHost="smtp.alumnos.frm.utn.edu.ar"
               smtpPort="25"
               smtpProtocol="smtp"
               ignoreExceptions="false"
-              smtpUsername="x@alumnos.frm.utn.edu.ar"
-              smtpPassword="x">
+              smtpUsername="xxxxxxxxx@alumnos.frm.utn.edu.ar"
+              smtpPassword="xxxxxxxxx">
             <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} [%t] %-5level %logger{36} - %msg%n" />
             <ThresholdFilter level="DEBUG" onMatch="ACCEPT" onMismatch="DENY"/>
         </SMTP>
