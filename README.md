@@ -1,1 +1,1 @@
-[!Hospital2.png]
+!Hospital2.png
